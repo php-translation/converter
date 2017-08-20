@@ -3,11 +3,12 @@
 namespace Translation\Converter\Tests\Functional\Service;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Translation\MessageCatalogue;
 use Translation\Bundle\Model\Metadata;
 use Translation\Converter\Reader\JmsReader;
 use Translation\Converter\Service\Converter;
 use Translation\SymfonyStorage\Loader\XliffLoader;
+use Symfony\Component\Translation\Loader;
+
 
 class ConverterTest extends TestCase
 {
@@ -25,8 +26,12 @@ class ConverterTest extends TestCase
 
     protected function setUp()
     {
-        @unlink(self::$outputDir);
-        @mkdir(self::$outputDir);
+        @mkdir(self::$outputDir, 0777, true);
+        $files = glob(self::$outputDir.'/*');
+        foreach($files as $file){
+            if(is_file($file))
+                unlink($file);
+        }
     }
 
     public function testConvertJMS()
@@ -45,7 +50,7 @@ class ConverterTest extends TestCase
 
     public function testConvertYaml()
     {
-        $reader = new JmsReader();
+        $reader =   new Loader\YamlFileLoader();
         $converter = new Converter($reader, 'yml');
         $converter->convert(self::$fixturesDir, self::$outputDir, ['en']);
 
