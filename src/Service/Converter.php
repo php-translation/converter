@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the PHP Translation package.
+ *
+ * (c) PHP Translation team <tobias.nyholm@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Translation\Converter\Service;
 
 use Symfony\Component\Config\Resource\FileResource;
@@ -30,9 +39,8 @@ class Converter
     private $writer;
 
     /**
-     *
      * @param LoaderInterface $reader
-     * @param string $format
+     * @param string          $format
      */
     public function __construct(LoaderInterface $reader, $format)
     {
@@ -51,7 +59,7 @@ class Converter
         $inputDir = realpath($inputDir);
         $outputDir = realpath($outputDir);
         $inputStorage = new FileStorage($this->writer, $this->reader, [$inputDir]);
-        $outputStorage = new FileStorage($this->writer, $this->reader, [$outputDir], ['xliff_version'=>'2.0']);
+        $outputStorage = new FileStorage($this->writer, $this->reader, [$outputDir], ['xliff_version' => '2.0']);
         foreach ($locales as $locale) {
             $inputCatalogue = new MessageCatalogue($locale);
             $outputCatalogue = new MessageCatalogue($locale);

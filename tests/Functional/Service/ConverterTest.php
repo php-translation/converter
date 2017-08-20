@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the PHP Translation package.
+ *
+ * (c) PHP Translation team <tobias.nyholm@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Translation\Converter\Tests\Functional\Service;
 
 use PHPUnit\Framework\TestCase;
@@ -9,10 +18,8 @@ use Translation\Converter\Service\Converter;
 use Translation\SymfonyStorage\Loader\XliffLoader;
 use Symfony\Component\Translation\Loader;
 
-
 class ConverterTest extends TestCase
 {
-
     protected static $fixturesDir;
     protected static $outputDir;
 
@@ -23,14 +30,14 @@ class ConverterTest extends TestCase
         parent::setUpBeforeClass();
     }
 
-
     protected function setUp()
     {
         @mkdir(self::$outputDir, 0777, true);
         $files = glob(self::$outputDir.'/*');
-        foreach($files as $file){
-            if(is_file($file))
+        foreach ($files as $file) {
+            if (is_file($file)) {
                 unlink($file);
+            }
         }
     }
 
@@ -50,7 +57,7 @@ class ConverterTest extends TestCase
 
     public function testConvertYaml()
     {
-        $reader =   new Loader\YamlFileLoader();
+        $reader = new Loader\YamlFileLoader();
         $converter = new Converter($reader, 'yml');
         $converter->convert(self::$fixturesDir, self::$outputDir, ['en']);
 
