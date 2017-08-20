@@ -12,8 +12,6 @@ use Translation\Converter\Reader\JmsReader;
 use Translation\Converter\Service\Converter;
 
 /**
- *
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class ConvertCommand extends Command

@@ -1,0 +1,6 @@
+en:
+  symbol:
+    anonymous: "Business"
+    bacon:
+      one: "1 bacon"
+      other: "%count% bacons"

@@ -41,18 +41,16 @@ class JmsReader implements LoaderInterface
             $id = ($resName = (string) $trans->attributes()->resname)
                 ? $resName : (string) $trans->source;
 
-            $meta['notes'][] = ['id'=>'approved', 'content' => $trans['approved']];
-
-            if (isset($trans->target['state'])) {
-                // Redo this with our "status"
-                $meta['notes'][] = ['id'=>'state', 'content' => $trans['state']];
+            if (empty($id)) {
+                continue;
             }
 
+            $meta = [];
             if ($hasReferenceFiles) {
                 foreach ($trans->xpath('./jms:reference-file') as $file) {
                     $line = (string) $file->attributes()->line;
 
-                    $meta['notes'][] = ['content' => 'file-source', 'from'=>sprintf('%s:%s', (string) $file, $line ? (integer) $line : 0)];
+                    $meta['notes'][] = ['category' => 'file-source', 'content'=>sprintf('%s:%s', (string) $file, $line ? (integer) $line : 0)];
                 }
             }
 
@@ -61,7 +59,17 @@ class JmsReader implements LoaderInterface
                     $meaning = substr($meaning, 9);
                 }
 
-                $meta['notes'][] = ['id'=>'meaning', 'content' => $meaning];
+                $meta['notes'][] = ['category'=>'meaning', 'content' => $meaning];
+            }
+            if ($approved = (string) $trans->attributes()->approved) {
+                $text = (string)$approved;
+                $meta['notes'][] = ['category' => 'approved', 'content' => $text == 'yes' || $text == 'true' ? 'true' : 'false'];
+            }
+
+            foreach ($trans->target->attributes() as $name => $value) {
+                if ($name === 'state') {
+                    $meta['notes'][] = ['category'=>'state', 'content' => (string) $value];
+                }
             }
 
             $catalogue->set($id, $trans->target, $domain);
