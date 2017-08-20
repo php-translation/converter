@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the PHP Translation package.
+ *
+ * (c) PHP Translation team <tobias.nyholm@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Translation\Converter\Reader;
 
 use Symfony\Component\Config\Resource\FileResource;
@@ -11,9 +20,10 @@ use Symfony\Component\Translation\MessageCatalogue;
 class JmsReader implements LoaderInterface
 {
     /**
-     * @param mixed $resource
+     * @param mixed  $resource
      * @param string $locale
      * @param string $domain
+     *
      * @return MessageCatalogue
      */
     public function load($resource, $locale, $domain = 'messages')
@@ -50,7 +60,7 @@ class JmsReader implements LoaderInterface
                 foreach ($trans->xpath('./jms:reference-file') as $file) {
                     $line = (string) $file->attributes()->line;
 
-                    $meta['notes'][] = ['category' => 'file-source', 'content'=>sprintf('%s:%s', (string) $file, $line ? (integer) $line : 0)];
+                    $meta['notes'][] = ['category' => 'file-source', 'content' => sprintf('%s:%s', (string) $file, $line ? (int) $line : 0)];
                 }
             }
 
@@ -59,16 +69,16 @@ class JmsReader implements LoaderInterface
                     $meaning = substr($meaning, 9);
                 }
 
-                $meta['notes'][] = ['category'=>'meaning', 'content' => $meaning];
+                $meta['notes'][] = ['category' => 'meaning', 'content' => $meaning];
             }
             if ($approved = (string) $trans->attributes()->approved) {
-                $text = (string)$approved;
+                $text = (string) $approved;
                 $meta['notes'][] = ['category' => 'approved', 'content' => $text == 'yes' || $text == 'true' ? 'true' : 'false'];
             }
 
             foreach ($trans->target->attributes() as $name => $value) {
                 if ($name === 'state') {
-                    $meta['notes'][] = ['category'=>'state', 'content' => (string) $value];
+                    $meta['notes'][] = ['category' => 'state', 'content' => (string) $value];
                 }
             }
 
