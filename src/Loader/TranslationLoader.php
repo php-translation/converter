@@ -73,6 +73,4 @@ class TranslationLoader implements TranslationLoaderInterface, TranslationReader
             $catalogue->addCatalogue($this->loader->load($file->getPathname(), $catalogue->getLocale(), $domain));
         }
     }
-
-
 }

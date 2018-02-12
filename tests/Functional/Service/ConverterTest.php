@@ -21,6 +21,7 @@ use Symfony\Component\Translation\Loader;
 class ConverterTest extends TestCase
 {
     protected static $fixturesDir;
+
     protected static $outputDir;
 
     public static function setUpBeforeClass()
