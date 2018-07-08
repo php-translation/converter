@@ -15,9 +15,8 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\MessageCatalogue;
 use Translation\SymfonyStorage\TranslationLoader as TranslationLoaderInterface;
-use Symfony\Component\Translation\Reader\TranslationReaderInterface;
 
-class TranslationLoader implements TranslationLoaderInterface, TranslationReaderInterface
+class TranslationLoader implements TranslationLoaderInterface
 {
     /**
      * @var LoaderInterface
