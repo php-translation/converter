@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "^5.5 || ^7.0",
-        "php-translation/symfony-storage": "^1.0",
+        "php-translation/symfony-storage": "^1.0.1",
         "symfony/console": "^2.7 || ^3.0 || ^4.0",
         "symfony/yaml": "^2.7 || ^3.0 || ^4.0",
         "symfony/finder": "^2.7 || ^3.0 || ^4.0",
