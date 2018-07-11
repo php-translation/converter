@@ -24,13 +24,13 @@ Just run the command like below:
 
 ```bash
 # Example
-./vendor/bin/translation-converter [input_dir] [output_dir] [format]
+./vendor/bin/translation-converter translation:convert [input_dir] [output_dir] [format]
 
 # Convert from JMSTranslationBundle
-./vendor/bin/translation-converter app/Resources/translations app/Resources/translations-new jms
+./vendor/bin/translation-converter translation:convert app/Resources/translations app/Resources/translations-new jms
 
 # Convert from Yaml
-./vendor/bin/translation-converter app/Resources/translations app/Resources/translations-new yml
+./vendor/bin/translation-converter translation:convert app/Resources/translations app/Resources/translations-new yml
 ```
 
 ### Documentation

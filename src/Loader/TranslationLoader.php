@@ -43,8 +43,21 @@ class TranslationLoader implements TranslationLoaderInterface
      *
      * @param string           $directory the directory to look into
      * @param MessageCatalogue $catalogue the catalogue
+     *
+     * @deprecated Use read instead.
      */
     public function loadMessages($directory, MessageCatalogue $catalogue)
+    {
+        return $this->read($directory, $catalogue);
+    }
+
+    /**
+     * Loads translation messages from a directory to the catalogue.
+     *
+     * @param string           $directory the directory to look into
+     * @param MessageCatalogue $catalogue the catalogue
+     */
+    public function read($directory, MessageCatalogue $catalogue)
     {
         if (!is_dir($directory)) {
             return;

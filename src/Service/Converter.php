@@ -44,6 +44,7 @@ class Converter
     {
         $this->reader = new TranslationLoader($reader, $format);
         $this->writer = new TranslationWriter();
+        $this->writer->disableBackup();
         $this->writer->addDumper('xlf', new XliffDumper());
     }
 

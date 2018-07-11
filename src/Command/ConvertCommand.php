@@ -53,14 +53,14 @@ class ConvertCommand extends Command
 
         if (null === $format = $input->getOption('format')) {
             $formats = array_unique($formats);
-            if (count($formats) !== 1) {
+            if (1 !== count($formats)) {
                 throw new \InvalidArgumentException('More than one format found. Please specify a format with --format=xxx');
             }
             $format = reset($formats);
         }
 
         $reader = $this->getReader($format);
-        $converter = new Converter($reader, $format === 'jms' ? 'xlf' : $format);
+        $converter = new Converter($reader, 'jms' === $format ? 'xlf' : $format);
         $converter->convert($input->getArgument('input_dir'), $input->getArgument('output_dir'), array_unique($locales));
     }
 

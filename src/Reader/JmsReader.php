@@ -71,11 +71,11 @@ class JmsReader implements LoaderInterface
             }
             if ($approved = (string) $trans->attributes()->approved) {
                 $text = (string) $approved;
-                $meta['notes'][] = ['category' => 'approved', 'content' => $text == 'yes' || $text == 'true' ? 'true' : 'false'];
+                $meta['notes'][] = ['category' => 'approved', 'content' => 'yes' == $text || 'true' == $text ? 'true' : 'false'];
             }
 
             foreach ($trans->target->attributes() as $name => $value) {
-                if ($name === 'state') {
+                if ('state' === $name) {
                     $meta['notes'][] = ['category' => 'state', 'content' => (string) $value];
                 }
             }

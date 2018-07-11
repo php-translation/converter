@@ -10,7 +10,19 @@
  * file that was distributed with this source code.
  */
 
-require __DIR__.'/../vendor/autoload.php';
+// This sucks.. we have to try to find the composer autoloader. But chances
+// are, we can't find it this way. So we'll do our bestest
+$paths = array(
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . '/../../../autoload.php',
+);
+
+foreach($paths as $path) {
+    if (file_exists($path)) {
+        include $path;
+        break;
+    }
+}
 
 use Symfony\Component\Console\Application;
 
