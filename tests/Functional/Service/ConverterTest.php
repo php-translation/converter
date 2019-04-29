@@ -45,10 +45,17 @@ class ConverterTest extends TestCase
     public function testConvertJMS()
     {
         $reader = new JmsReader();
-        $converter = new Converter($reader, 'xlf');
+        $converter = new Converter($reader, ['xlf', 'xliff']);
         $converter->convert(self::$fixturesDir, self::$outputDir, ['en']);
 
         $catalogue = (new XliffLoader())->load(self::$outputDir.'/messages.en.xlf', 'en');
+        $this->assertEquals('This is a bar.', $catalogue->get('bar'));
+        $meta = new Metadata($catalogue->getMetadata('bar'));
+        $this->assertTrue($meta->isApproved());
+        $this->assertEquals('new', $meta->getState());
+        $this->assertEquals('Tests/Translation/XliffMessageUpdaterTest.php', $meta->getSourceLocations()[0]['path']);
+
+        $catalogue = (new XliffLoader())->load(self::$outputDir.'/xliff.en.xlf', 'en');
         $this->assertEquals('This is a bar.', $catalogue->get('bar'));
         $meta = new Metadata($catalogue->getMetadata('bar'));
         $this->assertTrue($meta->isApproved());

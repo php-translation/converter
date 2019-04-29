@@ -27,10 +27,10 @@ Just run the command like below:
 ./vendor/bin/translation-converter translation:convert [input_dir] [output_dir] [format]
 
 # Convert from JMSTranslationBundle
-./vendor/bin/translation-converter translation:convert app/Resources/translations app/Resources/translations-new jms
+./vendor/bin/translation-converter translation:convert app/Resources/translations app/Resources/translations-new --format=jms
 
 # Convert from Yaml
-./vendor/bin/translation-converter translation:convert app/Resources/translations app/Resources/translations-new yml
+./vendor/bin/translation-converter translation:convert app/Resources/translations app/Resources/translations-new --format=yml
 ```
 
 ### Documentation

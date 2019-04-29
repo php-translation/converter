@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="not.available">
+        <header>
+            <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+            <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+        </header>
+        <body>
+            <trans-unit id="0" resname="key0">
+                <source>key0</source>
+                <target>trans0</target>
+            </trans-unit>
+            <trans-unit id="1" resname="bar" approved="yes">
+                <jms:reference-file>Tests/Translation/XliffMessageUpdaterTest.php</jms:reference-file>
+                <source>This is a bar.</source>
+                <target state="new">This is a bar.</target>
+            </trans-unit>
+            <trans-unit id="0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33" resname="key1" extradata="Meaning: baz">
+                <source>key1</source>
+                <target state="new">trans1</target>
+            </trans-unit>
+            <trans-unit id="fb2d5a853a8edd799b4084a828d7d6746210534b" resname="foo.bar.baz">
+                <source>foo.bar.baz</source>
+                <target state="new">foo.bar.baz</target>
+                <jms:reference-file>/a/b/c/foo/bar</jms:reference-file>
+                <jms:reference-file>/z/order/test</jms:reference-file>
+                <jms:reference-file>bar/baz</jms:reference-file>
+            </trans-unit>
+            <trans-unit id="fb2d5a853a8edd799b4084a828d7d6746210534b" resname="same.as.trans">
+                <source>same.as.trans</source>
+                <target state="new">same.as.trans</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -30,7 +30,7 @@ class TranslationLoader implements TranslationLoaderInterface
 
     /**
      * @param LoaderInterface $loader
-     * @param string          $format
+     * @param string|string[] $format
      */
     public function __construct(LoaderInterface $loader, $format)
     {
@@ -64,12 +64,50 @@ class TranslationLoader implements TranslationLoaderInterface
         }
 
         // load any existing translation files
-        $finder = new Finder();
-        $extension = $catalogue->getLocale().'.'.$this->format;
-        $files = $finder->files()->name('*.'.$extension)->in($directory);
+        $patterns = $this->getTranslationFilePatterns($catalogue);
+        $files = $this->getTranslationFiles($directory, $patterns);
         foreach ($files as $file) {
-            $domain = substr($file->getFilename(), 0, -1 * strlen($extension) - 1);
+            $domain = $this->getDomainFromFilename($file->getFilename(), $patterns);
             $catalogue->addCatalogue($this->loader->load($file->getPathname(), $catalogue->getLocale(), $domain));
         }
+    }
+
+    protected function getTranslationFiles($directory, $patterns)
+    {
+        $finder = new Finder();
+        foreach ($patterns as $pattern) {
+            $finder->name($pattern);
+        }
+
+        return $finder
+            ->files()
+            ->in($directory);
+    }
+
+    protected function getDomainFromFilename($filename, $patterns)
+    {
+        foreach ($patterns as $pattern) {
+            $extension = str_replace('*.', '', $pattern);
+            $length = strlen($extension);
+            if (substr($filename, -$length) === $extension) {
+                return substr($filename, 0, -1 * $length - 1);
+            }
+        }
+
+        return $filename;
+    }
+
+    protected function getTranslationFilePatterns(MessageCatalogue $catalogue)
+    {
+        if ($this->format && !is_array($this->format)) {
+            $this->format = [$this->format];
+        }
+
+        $patterns = [];
+        foreach ($this->format as $ext) {
+            $patterns[] = sprintf('*.%s.%s', $catalogue->getLocale(), $ext);
+        }
+
+        return $patterns;
     }
 }
