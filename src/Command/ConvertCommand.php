@@ -60,7 +60,7 @@ class ConvertCommand extends Command
         }
 
         $reader = $this->getReader($format);
-        $converter = new Converter($reader, 'jms' === $format ? 'xlf' : $format);
+        $converter = new Converter($reader, 'jms' === $format ? ['xlf', 'xliff'] : $format);
         $converter->convert($input->getArgument('input_dir'), $input->getArgument('output_dir'), array_unique($locales));
     }
 

@@ -38,7 +38,7 @@ class Converter
 
     /**
      * @param LoaderInterface $reader
-     * @param string          $format
+     * @param string|string[] $format
      */
     public function __construct(LoaderInterface $reader, $format)
     {
@@ -56,7 +56,11 @@ class Converter
     public function convert($inputDir, $outputDir, array $locales)
     {
         $inputDir = realpath($inputDir);
+        if (false === realpath($outputDir) && false === mkdir($outputDir)) {
+            throw new \Exception('Unable to create output directory.'.$outputDir);
+        }
         $outputDir = realpath($outputDir);
+
         $inputStorage = new FileStorage($this->writer, $this->reader, [$inputDir]);
         $outputStorage = new FileStorage($this->writer, $this->reader, [$outputDir], ['xliff_version' => '2.0']);
         foreach ($locales as $locale) {
